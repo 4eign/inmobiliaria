@@ -1,0 +1,5 @@
+name: Contact form
+type: module
+description: Module to manage contact form and send mail with data
+core: 8.x
+package: 4eign

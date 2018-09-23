@@ -1,0 +1,28 @@
+<?php
+/**
+ * @file
+ * Theme functions
+ */
+
+// Include all files from the includes directory.
+$includes_path = dirname(__FILE__) . '/includes/*.inc';
+foreach (glob($includes_path) as $filename) {
+  require_once dirname(__FILE__) . '/includes/' . basename($filename);
+}
+
+/**
+ * @param $variables
+ */
+function radix_inmo_preprocess_html(&$variables) {
+  $font_awesome_link = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'href' => 'https://use.fontawesome.com/releases/v5.3.1/css/all.css',
+      'rel' => 'stylesheet',
+      'integrity' => 'sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU',
+      'crossorigin' => 'anonymous',
+    ]
+  ];
+  
+  $variables['page']['#attached']['html_head'][] = [$font_awesome_link, 'material-icons'];
+}

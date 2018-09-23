@@ -1,0 +1,8 @@
+foureign_contact.contact_form:
+  path: '/foureign_contact/form/contact'
+  defaults:
+    _form: '\Drupal\foureign_contact\Form\ContactForm'
+    _title: 'ContactForm'
+  requirements:
+    _access: 'TRUE'
+  

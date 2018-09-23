@@ -1,0 +1,72 @@
+{#
+/**
+ * @file
+ * Template for a Node.
+ */
+#}
+{%
+  set classes = [
+  'node',
+  node.isPromoted() ? 'node--promoted',
+  node.isSticky() ? 'node--sticky',
+  not node.isPublished() ? 'node--unpublished',
+  node.bundle|clean_class,
+  node.bundle|clean_class ~ '--' ~ view_mode|clean_class,
+]
+%}
+{#
+<article{{ attributes.addClass(classes) }}>
+
+  <div class="card">
+    <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+    <div class="card-body">
+      {{ title_prefix }}
+      {% if not page %}
+        <h5{{ title_attributes }}>
+          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+        </h5>
+      {% endif %}
+      {{ title_suffix }}
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Mostrar más
+      </button>
+      <!-- End button trigger modal -->
+    </div>
+  </div>
+
+  {% if display_submitted %}
+    <footer>
+      {{ author_picture }}
+      <div{{ author_attributes }}>
+        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+        {{ metadata }}
+      </div>
+    </footer>
+  {% endif %}
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ label }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{ content }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Pedir información</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+
+</article>
+#}

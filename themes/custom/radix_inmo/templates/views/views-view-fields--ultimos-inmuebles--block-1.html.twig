@@ -1,0 +1,77 @@
+{#
+/**
+ * @file
+ * Theme override to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ */
+#}
+<div class="card">
+  {{ fields.field_imagen.content }}
+  <div class="card-body">
+    <h5 class="card-title">{{ fields.field_precio.content }}</h5>
+    <p class="card-text">{{ fields.title.content }}</p>
+  </div>
+  <div class="card-footer text-muted">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Mostrar más
+    </button>
+    <!-- End button trigger modal -->
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ fields.title.content }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ fields.field_precio.content }}
+        {{ fields.body.content }}
+        {{ fields.field_tipo_de_inmueble.content }}
+        {{ fields.field_estado.content }}
+        {{ fields.field_imagen_1.content }}
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Pedir información</button>
+        </div>
+        <div class="row">
+          <div class="contact-information" data-inmueble-info="{{ fields.view_node.content }}" hidden>
+            <input type="text" placeholder="teléfono" maxlength="12">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->

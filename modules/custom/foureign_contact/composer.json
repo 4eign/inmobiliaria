@@ -1,0 +1,14 @@
+{
+  "name": "drupal/contact",
+  "type": "drupal-module",
+  "description": "Module to manage form contact and send mail",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/contact",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/contact",
+    "source": "http://cgit.drupalcode.org/contact"
+  },
+  "require": { }
+}
