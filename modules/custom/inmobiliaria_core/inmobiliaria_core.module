@@ -15,10 +15,10 @@ use Drupal\Core\Routing\RouteMatchInterface;
  *
  * @return string
  */
-function foureign_contact_help($route_name, RouteMatchInterface $route_match) {
+function inmobiliaria_core_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     // Main module help for the contact module.
-    case 'help.page.foureign.contact':
+    case 'help.page.inmobiliaria_core.contact':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Module to manage contact form and send mail') . '</p>';
@@ -29,54 +29,51 @@ function foureign_contact_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_theme().
+ * Implements hook_page_attachments().
  *
- * @param $existing
- * @param $type
- * @param $theme
- * @param $path
- *
- * @return array
+ * @param array $page
  */
-function foureign_contact_theme($existing, $type, $theme, $path) {
-  return [
-    'foureign_contact_block' => array(
-      'variables' => array(
-        'uuid' => NULL,
-        'form' => NULL,
-        'config' => NULL,
-      ),
-      'template' => 'block--foureign-contact',
+function inmobiliaria_core_page_attachments(array &$page) {
+  $meta_data_iphone = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'format-detection',
+      'content' => 'telephone=no',
     ),
-  ];
+  );
+  $page['#attached']['html_head'][] = [$meta_data_iphone, 'format-detection'];
+  
+  $globalSettings = \Drupal::config('inmobiliaria_core.settings');
+  $test = $globalSettings->get('code');
+  if(!empty($globalSettings->get('code')['script_head']) && !is_null($globalSettings->get('code')['script_head'])) {
+    $page['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#attributes' => array('type' => 'text/javascript'),
+        '#value' => $globalSettings->get('code')['script_head'],
+      ],
+      'script_head',
+    ];
+  }
+  
 }
 
 /**
- * Implements hook_mail()
- * 
- * @param $key
- * @param $message
- * @param $params
+ * Implements hook_page_bottom().
+ *
+ * @param array $page_bottom
  */
-function foureign_contact_mail($key, &$message, $params) {
-  $options['langcode'] = $message['langcode'];
-  //user_mail_tokens($variables, $data, $options);
-  switch($key) {
-    case 'test':
-      $message['from'] = \Drupal::config('system.site')->get('mail');
-      $message['subject'] = t('Notificacion: @email', array('@email' => $params['email']), $options);
-      //$message['body'][] = $params['message'];
-      $message['body'][] = t(
-        'mi nombre es: @name 
-        mi telefono es: @phone_number 
-        mi correo es: @email 
-        mi solicitud es: @description',
-        array(
-          '@name' => $params['name'],
-          '@email' => $params['email'],
-          '@phone_number' => $params['phone_number'],
-          '@description' => $params['description']
-        ));
-      break;
+function inmobiliaria_core_page_bottom(array &$page_bottom) {
+  $globalSettings = \Drupal::config('inmobiliaria_core.settings');
+  
+  if(!empty($globalSettings->get('code')['script_bottom']) && !is_null($globalSettings->get('code')['script_bottom'])) {
+    $page_bottom['myBottomScript'] =
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#attributes' => array('type' => 'text/javascript'),
+        '#value' => $globalSettings->get('code')['script_bottom'],
+      ];
   }
 }

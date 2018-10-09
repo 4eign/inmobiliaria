@@ -1,0 +1,8 @@
+inmuebles.recientes:
+  version: 1.x
+  js:
+    js/behavior/inmuebles_init.js: {}
+  dependencies:
+  - core/jquery
+  - core/drupalSettings
+

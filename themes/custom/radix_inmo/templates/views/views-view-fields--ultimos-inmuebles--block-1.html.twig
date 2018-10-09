@@ -61,15 +61,16 @@
         {{ fields.field_imagen_1.content }}
       </div>
       <div class="modal-footer">
-        <div class="row">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Pedir información</button>
-        </div>
-        <div class="row">
-          <div class="contact-information" data-inmueble-info="{{ fields.view_node.content }}" hidden>
-            <input type="text" placeholder="teléfono" maxlength="12">
-          </div>
-        </div>
+          <button id="ask-info" type="button" class="btn btn-primary">Pedir información</button>
+      </div>
+      <div class="modal-footer contact-information">
+        <input type="text" placeholder="teléfono" maxlength="12">
+        <button type="button" data-inmueble-info="{{ fields.view_node.content }}" class="btn btn-primary">Enviar</button>
+        <span>te contactaremos lo mas pronto posible</span>
+      </div>
+      <div class="modal-footer contact-information alert">
+        <span>te contactaremos lo mas pronto posible</span>
       </div>
     </div>
   </div>

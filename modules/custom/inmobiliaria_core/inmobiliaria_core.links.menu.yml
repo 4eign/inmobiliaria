@@ -1,0 +1,13 @@
+inmobiliaria_core.settings:
+  route_name: inmobiliaria_core.settings
+  title: Inmobiliaria
+  description: 'Configuración de la inmobiliaria.'
+  parent: system.admin_config
+  weight: -6
+
+inmobiliaria_core.settings.global:
+  title: 'Configuración global'
+  route_name: inmobiliaria_core.settings.global
+  description: 'Permite establecer la configuración global de la inmobiliaria'
+  parent: inmobiliaria_core.settings
+  weight: 99

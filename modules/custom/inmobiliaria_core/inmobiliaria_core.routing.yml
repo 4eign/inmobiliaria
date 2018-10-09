@@ -1,0 +1,17 @@
+inmobiliaria_core.settings:
+  path: '/admin/inmobiliaria/config'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Media'
+  requirements:
+    _permission: 'access inmobiliaria administration'
+
+inmobiliaria_core.settings.global:
+  path: '/admin/config/inmobiliaria/core/settings'
+  defaults:
+    _form: '\Drupal\inmobiliaria_core\Form\GlobalSettings'
+    _title: 'Configuraciones globales del sitio'
+  requirements:
+    _permission: 'access inmobiliaria administration'
+  options:
+    _admin_route: TRUE
