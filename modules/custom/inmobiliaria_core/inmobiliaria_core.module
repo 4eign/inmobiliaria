@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * @file
+ * Contains foureign_contact.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ *
+ * @param $route_name
+ * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+ *
+ * @return string
+ */
+function foureign_contact_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the contact module.
+    case 'help.page.foureign.contact':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module to manage contact form and send mail') . '</p>';
+      return $output;
+    
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ *
+ * @return array
+ */
+function foureign_contact_theme($existing, $type, $theme, $path) {
+  return [
+    'foureign_contact_block' => array(
+      'variables' => array(
+        'uuid' => NULL,
+        'form' => NULL,
+        'config' => NULL,
+      ),
+      'template' => 'block--foureign-contact',
+    ),
+  ];
+}
+
+/**
+ * Implements hook_mail()
+ * 
+ * @param $key
+ * @param $message
+ * @param $params
+ */
+function foureign_contact_mail($key, &$message, $params) {
+  $options['langcode'] = $message['langcode'];
+  //user_mail_tokens($variables, $data, $options);
+  switch($key) {
+    case 'test':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('Notificacion: @email', array('@email' => $params['email']), $options);
+      //$message['body'][] = $params['message'];
+      $message['body'][] = t(
+        'mi nombre es: @name 
+        mi telefono es: @phone_number 
+        mi correo es: @email 
+        mi solicitud es: @description',
+        array(
+          '@name' => $params['name'],
+          '@email' => $params['email'],
+          '@phone_number' => $params['phone_number'],
+          '@description' => $params['description']
+        ));
+      break;
+  }
+}
